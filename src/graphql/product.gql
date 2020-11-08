@@ -1,0 +1,9 @@
+ query {
+  currency
+  products {
+    id
+    title
+    image_url
+    price(currency: USD)
+  }
+},
