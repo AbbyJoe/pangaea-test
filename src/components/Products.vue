@@ -6,6 +6,8 @@
           <h4>Your Cart</h4>
         </div>
         <div class="container">
+
+          <!-- ApolloQuery -->
           <ApolloQuery :query="require('../graphql/product.gql')" :variables="{ currency }">
           <template v-slot="{ result: {  data } }">
             <!-- Result -->
@@ -96,6 +98,7 @@ export default {
     currency: ''
   }),
   computed : {
+    //Calculate subtotal
       subTotal () {
         let total = 0;
         this.cartItems.carts.forEach((item)=> {
@@ -105,6 +108,7 @@ export default {
       }
     },
   methods: {
+    //Add item to cart
     addToCart(products) {
       this.show = true
       var cartItem = this.getCartItem(products);
@@ -117,15 +121,20 @@ export default {
           });
         }
     },
+    //Increase quantity
     inc(qty) {
       qty.quantity++
     },
+
+    //Decrease quantity
     dec(qty) {
       qty.quantity--
       if (qty.quantity == 0) {
         this.deleteCart(qty);
       }
     },
+
+    //Get cart Items
     getCartItem: function(product) {
       for (var i = 0; i < this.cartItems.carts.length; i++) {
         if (this.cartItems.carts[i].product.id === product.id) {
@@ -134,11 +143,13 @@ export default {
       }
       return null;
     },
+
+    //Delete cart item
     deleteCart (cart) {
         this.cartItems.carts.splice(this.cartItems.carts.indexOf(cart),  1);
     },
-    selectCurr(product) {
-      product.price = this.currency
+    selectCurr() {
+    //change price based on currency
     },
     
   },
