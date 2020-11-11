@@ -32,7 +32,7 @@
                   <span class="pl-2 pr-2">{{items.quantity}}</span>
                   <span class="plus" @click="inc(items)">+</span>
                 </div>
-                <p>${{items.product.price * items.quantity}}</p>
+                <p>{{items.product.price * items.quantity}}{{currency}}</p>
               </div>
             </div>
             <div v-if="cartItems.carts.length == 0" class="text-center p-4">
@@ -43,7 +43,7 @@
             <hr>
             <div class="d-flex p-4">
               <h5>Subtotal</h5>
-              <p>${{subTotal}}</p>
+              <p>{{subTotal}}{{currency}}</p>
             </div>
             <div class="container pb-4">
               <button type="button" class="btn btn-block add">PROCEED TO CHECKOUT</button>
@@ -70,7 +70,7 @@
                     <div class="col-lg-4 col-md-6 p-5" v-for="product in data.products" :key="product.id">
                         <img :src="product.image_url" width="100" height="100" :alt="product.image_url">
                         <p class="mt-5">{{product.title}}</p>
-                        <p>${{product.price}}</p>
+                        <p>{{product.price}}{{currency}}</p>
                         <button type="button" class="btn add" @click="addToCart(product)">Add to Cart</button>
                     </div>
                   </div>
@@ -95,7 +95,7 @@ export default {
       carts:[]
     },
     selected: 'USD',
-    currency: ''
+    currency: 'USD',
   }),
   computed : {
     //Calculate subtotal
@@ -150,6 +150,7 @@ export default {
     },
     selectCurr() {
     //change price based on currency
+      this.currency = this.selected
     },
     
   },

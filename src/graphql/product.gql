@@ -1,9 +1,9 @@
- query {
-  currency
+query products ($currency: Currency) {
+    currency
   products {
-    id
-    title
+    id,
+    title,
     image_url
-    price(currency: USD)
+    price(currency: $currency)
   }
-},
+}
